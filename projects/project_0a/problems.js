@@ -1,3 +1,10 @@
+/**
+ * Author: Abhinav Tumu
+ * Project: 0A: The Morning After the Night Before
+ * filename: problems.js
+ * Date: 9/26/19
+ */
+
 //Problem 1
 function perimeter(w, h) { //takes width and height as parameters
     return (2 * w + 2 * h) //formula for perimeter is 2*width + 2*length
