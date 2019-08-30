@@ -82,11 +82,11 @@ function licenseProblem() {
 
 
 //Problem 7
-function searchChar(str, ch) {
-    let chCount = 0
-    for (const c of str) {
-        if (c == ch) {
-            chCount++
+function searchChar(str, ch) { //takes string and character input
+    let chCount = 0 //initial character count is zero
+    for (const c of str) { //iterates through each character in the string
+        if (c == ch) { //if index character matches input string
+            chCount++ //increment character count
         }
     }
     return chCount
@@ -95,12 +95,12 @@ function searchChar(str, ch) {
 
 
 //Problem 8
-function pallindrome(str) {
-    let reversedStr = ""
-    for (let i = str.length - 1; i >= 0; i--) {
-        reversedStr = reversedStr + str[i]
+function pallindrome(str) { //takes string input
+    let reversedStr = "" //initial reversed string is empty
+    for (let i = str.length - 1; i >= 0; i--) { //iterates through string 
+        reversedStr = reversedStr + str[i] //adds to reversed String from the end of the input string
     }
-    if (reversedStr == str) {
+    if (reversedStr == str) { //if reversed string matches input string
         return true
     }
     return false
