@@ -1,6 +1,6 @@
 /**
  * Author: Abhinav Tumu
- * Project: 0A: The Morning After the Night Before
+ * Project: 0A The Morning After the Night Before
  * filename: problems.js
  * Date: 9/26/19
  */
