@@ -7,7 +7,7 @@
 
 //Problem 1
 function perimeter(w, h) { //takes width and height as parameters
-    return (2 * w + 2 * h) //formula for perimeter is 2*width + 2*length
+    return (w+h+Math.sqrt(Math.pow(w,2)+Math.pow(h,2))) //formula for perimeter is width + height + sqrt(w^2+h^2)
 }
 //console.log(perimeter(5, 6)) //uncomment to test with node
 
@@ -85,7 +85,7 @@ function licenseProblem() {
     }
     testLicense() // initial run
 }
-//LicenseProblem() //uncomment the left side of this line to run problem 6
+licenseProblem() //uncomment the left side of this line to run problem 6
 
 
 //Problem 7
