@@ -84,14 +84,13 @@ def narrow_interesting(interest: [str]) -> None:
         for path in eligible_paths:
             try:
                 my_file = open(path, 'r')
-                # print(my_file)
                 for line in my_file:
                     if (interest in line): # if input is on any line
                         if (path not in uniquefiles): #only if this file hasn't been counted as having the input text, then print and make interesting
                             print(path)
                             interesting_paths.append(path)
                             uniquefiles.append(path)
-
+                my_file.close()
             except UnicodeDecodeError: # if file cannot be opened, then ignore it (pass it)
                 pass
     elif (interest.startswith('< ')):
@@ -119,12 +118,14 @@ def take_action(action: [str]) -> None:
             try:
                 my_file = open(path, 'r')
                 print(my_file.readline().rstrip()) # prints first line of file
+                my_file.close()
 
             except UnicodeDecodeError: # prints NOT TEXT if file cannot be opened
                 print('NOT TEXT')
     elif(action == 'D'):
         for path in interesting_paths:
             my_file = open(path.as_posix()+'.dup', 'w+') # writes new file with .dup extension
+            my_file.close()
 
     elif(action == 'T'):
         for path in interesting_paths:
@@ -143,5 +144,3 @@ if (len(interesting_paths) != 0):
     take_action(change)
 # end main sequence
 
-if __name__ == '__main__': #test module
-    print('hello')
