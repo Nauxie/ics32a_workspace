@@ -69,7 +69,7 @@ def narrow_interesting(interest: [str]) -> None:
     elif (interest.startswith('N ')): 
         interest = interest[2:]
         for path in eligible_paths: # if filename matches input, make interesting
-            if (path.as_posix()[path.as_posix().rfind('/')+1:] == interest): #checks if the string after the last '/' matches the file
+            if (path.name == interest): #checks if the name of file at path matches input name
                 print(path)
                 interesting_paths.append(path)
     elif (interest.startswith('E ')):
@@ -143,4 +143,3 @@ if (len(interesting_paths) != 0):
     change = input()
     take_action(change)
 # end main sequence
-
