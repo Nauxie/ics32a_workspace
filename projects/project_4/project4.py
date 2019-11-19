@@ -22,6 +22,18 @@ def interface():
         elif (action == ''):
             board.handle_blank()
             board.print_board()
+        elif (action.strip() == '>'):
+            board.move_right()
+            board.print_board()
+        elif (action.strip() == '<'):
+            board.move_left()
+            board.print_board()
+        elif (action == 'R'):
+            board.handle_rotate()
+            board.print_board()
+        elif (action == 'M'):
+            board.handle_matches()
+            board.print_board()
         elif (action.startswith('Q')):
             board = quit_game(action, board)
 
