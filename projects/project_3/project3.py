@@ -7,16 +7,16 @@ import signalstrats
 
 def run_user_interface() -> None:
     '''runs the main interface'''
-    # apikey_path = input() # UNCOMMENT THIS !!!
+    apikey_path = input()  # UNCOMMENT THIS !!!
     # comment on submit
-    apikey_path = '/Users/abhinav/Documents/GitHub/ics32a_workspace/projects/project_3/apikey.txt'
+    #apikey_path = '/Users/abhinav/Documents/GitHub/ics32a_workspace/projects/project_3/apikey.txt'
     apikey = get_apikey(apikey_path)
-    #symbol = input()
-    symbol = 'AAPL'
-    #start_date = input()
-    start_date = '2018-10-01'
-    #end_date = input()
-    end_date = '2018-10-31'
+    symbol = input()
+    #symbol = 'MSFT'
+    start_date = input()
+    #start_date = '2020-11-01'
+    end_date = input()
+    #end_date = '2020-11-10'
     action = input()
     function_type, outputsize, HOST = 'TIME_SERIES_DAILY', 'full', 'https://www.alphavantage.co/'  # constants
     api_url = HOST + '/query' + '?' + 'function=' + function_type + '&' + \
@@ -25,18 +25,26 @@ def run_user_interface() -> None:
     data_dict = {}
     data_dict = json_to_dict(api_call(api_url))
     data_key = 'Time Series (Daily)'
-    date_list = list((data_dict[data_key]))
+    date_list = []
+    try:
+        date_list = list((data_dict[data_key]))
+    except KeyError:
+        pass
     date_list.reverse()
-    while (start_date not in date_list):
-        start_datetime = convert_date(start_date)
-        start_datetime = start_datetime + datetime.timedelta(days=1)
-        start_date = str(start_datetime)
-    while (end_date not in date_list):
-        end_datetime = convert_date(end_date)
-        end_datetime = end_datetime - datetime.timedelta(days=1)
-        end_date = str(end_datetime)
-    date_list = date_list[date_list.index(
-        start_date):date_list.index(end_date)+1]
+    if (len(date_list) != 0):
+        while (start_date not in date_list):
+            start_datetime = convert_date(start_date)
+            start_datetime = start_datetime + datetime.timedelta(days=1)
+            start_date = str(start_datetime)
+        while (end_date not in date_list):
+            end_datetime = convert_date(end_date)
+            end_datetime = end_datetime - datetime.timedelta(days=1)
+            end_date = str(end_datetime)
+    try:
+        date_list = date_list[date_list.index(
+            start_date):date_list.index(end_date)+1]
+    except ValueError:
+        pass
     print_header(symbol, date_list, action)
     for date in date_list:
         current_dict = data_dict[data_key][date]
@@ -52,7 +60,8 @@ def print_data_line(date: str, current_dict: dict, ind: '???', strat: '???') -> 
           current_dict['4. close'], current_dict['5. volume'], ind.calculate(), strat.buy_or_not(), strat.sell_or_not(), sep='\t')
 
 
-def print_header(symbol, dates, action):
+def print_header(symbol: str, dates: list, action: str) -> None:
+    '''prints the header for the output'''
     print(symbol)
     print(len(dates))
     print(action)
@@ -60,7 +69,8 @@ def print_header(symbol, dates, action):
           'Volume', 'Indicator', 'Buy?', 'Sell?', sep='\t')
 
 
-def get_indicator_and_strat(action, current_dict, date_list, data_key, date, data_dict):
+def get_indicator_and_strat(action: str, current_dict: dict, date_list: list, data_key: str, date: str, data_dict: dict) -> tuple:
+    '''takes in the action and the necessary data and returns a tuple with an indicator and strategy object'''
     if action.startswith('TR'):  # TR <1.5 >0.5
         action_list = action.split()
         buy_limit = action_list[1][1:]
