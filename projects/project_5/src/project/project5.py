@@ -1,3 +1,6 @@
+# Name: Abhinav Tumu
+# Student ID: 25321673
+
 import pygame
 from gamelogic import Board
 import random
